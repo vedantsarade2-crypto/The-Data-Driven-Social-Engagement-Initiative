@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Social Insights{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="app-shell">
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-mark">SI</div>
+            <div>
+                <div class="brand-name">Social Insights</div>
+                <div class="brand-sub">Content Performance Tracker</div>
+            </div>
+        </div>
+
+        <div class="sidebar-label">WORKSPACE</div>
+        <nav class="nav">
+            <a class="nav-item {% if page == 'overview' %}active{% endif %}" href="{{ url_for('index') }}">
+                <span class="nav-icon">⌂</span><span>Overview</span>
+            </a>
+            <a class="nav-item {% if page == 'content' %}active{% endif %}" href="{{ url_for('content') }}">
+                <span class="nav-icon">▤</span><span>Content</span>
+            </a>
+            <a class="nav-item {% if page == 'audience' %}active{% endif %}" href="{{ url_for('audience') }}">
+                <span class="nav-icon">◉</span><span>Audience & NLP</span>
+            </a>
+            <a class="nav-item {% if page == 'trends' %}active{% endif %}" href="{{ url_for('trends') }}">
+                <span class="nav-icon">↗</span><span>Trend Analysis</span>
+            </a>
+            <a class="nav-item {% if page == 'recommendations' %}active{% endif %}" href="{{ url_for('recommendations') }}">
+                <span class="nav-icon">✦</span><span>Recommendations</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="mini-card">
+                <div class="mini-dot"></div>
+                <div>
+                    <strong>Dataset connected</strong>
+                    <small>196 analyzed videos</small>
+                </div>
+            </div>
+            <div class="project-note">Data-Driven Social Engagement Initiative</div>
+        </div>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
+            <div>
+                <div class="eyebrow">YOUTUBE ANALYTICS</div>
+                <h1>{% block heading %}Executive Overview{% endblock %}</h1>
+            </div>
+            <div class="topbar-right">
+                <span class="status-pill"><span class="status-dot"></span> Dataset loaded</span>
+                <span class="date-pill">Analysis workspace</span>
+            </div>
+        </header>
+
+        <section class="content-area">
+            {% block content %}{% endblock %}
+        </section>
+
+        <footer class="footer">
+            <span>Social Insights</span>
+            <span>Built for content performance analysis</span>
+        </footer>
+    </main>
+</div>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

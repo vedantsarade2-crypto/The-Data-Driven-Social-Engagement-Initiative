@@ -1,0 +1,6 @@
+content_id,topic,content_format,hook_type,video_length_sec,posting_period,caption_style
+CS001,Overthinking,Short,Text,25,Evening,Question
+CS002,Overthinking,Long,Visual,65,Night,Story
+CS003,Social Anxiety,Short,Visual,30,Evening,Statement
+CS004,Career Anxiety,Long,Text,70,Night,Question
+CS005,Loneliness,Short,Visual,25,Evening,Story

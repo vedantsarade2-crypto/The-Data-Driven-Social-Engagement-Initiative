@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Trend Analysis | Social Insights{% endblock %}
+{% block heading %}Trend Analysis{% endblock %}
+
+{% block content %}
+<div class="page-intro">
+    <div>
+        <div class="section-kicker">TREND INTELLIGENCE</div>
+        <h2>Signals worth watching</h2>
+        <p>Search and hashtag activity combined into a preliminary rising-topic signal.</p>
+    </div>
+    <div class="warning-note">Small trend sample • interpret directionally</div>
+</div>
+
+<div class="grid-2">
+    <section class="panel">
+        <div class="panel-head"><div><span class="section-kicker">TREND SCORE</span><h3>Trend movement</h3></div></div>
+        <div id="trendChart" class="line-chart"></div>
+    </section>
+    <section class="panel">
+        <div class="panel-head"><div><span class="section-kicker">RISING TOPICS</span><h3>Current signal</h3></div></div>
+        {% for row in rising %}
+        <div class="rising-card">
+            <div class="rising-rank">#{{ row.rank|int }}</div>
+            <div class="rising-main"><strong>{{ row.keyword }}</strong><small>Search growth {{ "%.1f"|format(row.average_search_growth|float) }}% · Hashtag growth {{ "%.1f"|format(row.average_hashtag_growth|float) }}%</small></div>
+            <div class="rising-score">{{ "%.2f"|format(row.rising_score|float) }}</div>
+        </div>
+        {% else %}
+        <div class="empty">No rising-topic records found.</div>
+        {% endfor %}
+    </section>
+</div>
+
+<section class="panel">
+    <div class="panel-head"><div><span class="section-kicker">RAW TREND OBSERVATIONS</span><h3>Search and hashtag volumes</h3></div></div>
+    <div class="table-scroll">
+        <table>
+            <thead><tr><th>Date</th><th>Keyword</th><th>Search volume</th><th>Hashtag volume</th><th>Trend score</th><th>Search growth</th><th>Hashtag growth</th></tr></thead>
+            <tbody>
+            {% for row in trends %}
+                <tr>
+                    <td>{{ row.trend_date }}</td>
+                    <td><strong>{{ row.keyword }}</strong></td>
+                    <td>{{ "{:,.0f}".format(row.search_volume|float) }}</td>
+                    <td>{{ "{:,.0f}".format(row.hashtag_volume|float) }}</td>
+                    <td>{{ "%.3f"|format(row.trend_score|float) }}</td>
+                    <td>{{ "%.1f"|format(row.search_growth_pct|float) }}%</td>
+                    <td>{{ "%.1f"|format(row.hashtag_growth_pct|float) }}%</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="panel">
+    <div class="panel-head"><div><span class="section-kicker">TREND-AWARE RECOMMENDATIONS</span><h3>Topic opportunity ranking</h3></div></div>
+    <div class="recommend-grid">
+    {% for row in recommendations %}
+        <div class="recommend-card">
+            <div class="rec-rank">#{{ row.final_rank|int }}</div>
+            <h4>{{ row.topic }}</h4>
+            <div class="rec-score">{{ "%.2f"|format(row.final_recommendation_score|float) }}</div>
+            <p>{{ row.reasoning }}</p>
+        </div>
+    {% endfor %}
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>window.dashboardCharts = {{ charts|tojson }}; renderTrendChart(window.dashboardCharts);</script>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Recommendations | Social Insights{% endblock %}
+{% block heading %}Recommendations{% endblock %}
+
+{% block content %}
+<div class="page-intro">
+    <div>
+        <div class="section-kicker">CONTENT STRATEGY</div>
+        <h2>What should be tested next?</h2>
+        <p>Recommendations generated from topic performance, viral prediction and trend signals.</p>
+    </div>
+</div>
+
+<div class="recommend-grid large">
+{% for row in recommendations %}
+    <article class="recommend-card featured">
+        <div class="rec-header">
+            <span class="rec-id">{{ row.recommendation_id }}</span>
+            <span class="badge high">Strategy</span>
+        </div>
+        <h3>{{ row.recommended_topic }}</h3>
+        <div class="probability">{{ "%.0f"|format((row.expected_viral_probability|float) * 100) }}<small>% expected probability score</small></div>
+        <div class="rec-details">
+            <div><span>Format</span><strong>{{ row.recommended_format }}</strong></div>
+            <div><span>Length</span><strong>{{ row.recommended_length }}</strong></div>
+            <div><span>Hook</span><strong>{{ row.recommended_hook }}</strong></div>
+            <div><span>Caption</span><strong>{{ row.recommended_caption_style }}</strong></div>
+            <div><span>Posting</span><strong>{{ row.recommended_posting_period }}</strong></div>
+        </div>
+        <p class="reasoning">{{ row.reasoning }}</p>
+    </article>
+{% endfor %}
+</div>
+
+<section class="panel">
+    <div class="panel-head"><div><span class="section-kicker">MODEL + TREND SCORE</span><h3>Trend-aware topic ranking</h3></div></div>
+    <div class="table-scroll">
+        <table>
+            <thead><tr><th>Rank</th><th>Topic</th><th>Final score</th><th>Historical</th><th>ML</th><th>Trend</th><th>Reasoning</th></tr></thead>
+            <tbody>
+            {% for row in aware %}
+                <tr>
+                    <td><span class="rank">{{ row.final_rank|int }}</span></td>
+                    <td><strong>{{ row.topic }}</strong></td>
+                    <td><strong>{{ "%.3f"|format(row.final_recommendation_score|float) }}</strong></td>
+                    <td>{{ "%.3f"|format(row.historical_score|float) }}</td>
+                    <td>{{ "%.3f"|format(row.ml_score|float) }}</td>
+                    <td>{{ "%.3f"|format(row.trend_score_normalized|float) }}</td>
+                    <td>{{ row.reasoning }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<div class="method-note large-note">
+    <strong>Important:</strong> These recommendations are analytical decision-support signals. The topic score is a transparent heuristic and the viral probability is a model score, not a guarantee of future performance.
+</div>
+{% endblock %}

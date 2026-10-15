@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %}Overview | Social Insights{% endblock %}
+{% block heading %}Executive Overview{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <div>
+        <div class="hero-kicker">CONTENT PERFORMANCE OVERVIEW</div>
+        <h2>What is working across the content library?</h2>
+        <p>Performance, audience response, viral potential and emerging topics in one place.</p>
+    </div>
+    <div class="hero-badge">
+        <span class="pulse"></span>
+        Analysis ready
+    </div>
+</div>
+
+<div class="metric-grid">
+    <div class="metric-card blue">
+        <div class="metric-top"><span>Total videos</span><span class="metric-icon">▶</span></div>
+        <div class="metric-value">{{ "{:,}".format(summary.total_videos) }}</div>
+        <div class="metric-note">Unique videos analyzed</div>
+    </div>
+    <div class="metric-card purple">
+        <div class="metric-top"><span>Total views</span><span class="metric-icon">◉</span></div>
+        <div class="metric-value">{{ "{:,.0f}".format(summary.total_views) }}</div>
+        <div class="metric-note">Across the analyzed library</div>
+    </div>
+    <div class="metric-card orange">
+        <div class="metric-top"><span>Viral videos</span><span class="metric-icon">↗</span></div>
+        <div class="metric-value">{{ summary.viral_videos }}</div>
+        <div class="metric-note">{{ summary.viral_rate }}% of analyzed videos</div>
+    </div>
+    <div class="metric-card green">
+        <div class="metric-top"><span>Avg. engagement</span><span class="metric-icon">♥</span></div>
+        <div class="metric-value">{{ summary.avg_engagement }}%</div>
+        <div class="metric-note">Likes + comments / views</div>
+    </div>
+</div>
+
+<div class="grid-2">
+    <section class="panel">
+        <div class="panel-head">
+            <div>
+                <span class="section-kicker">TOPIC PERFORMANCE</span>
+                <h3>Median views by topic</h3>
+            </div>
+            <span class="panel-tag">Top 8</span>
+        </div>
+        <div id="topicChart" class="bar-chart"></div>
+    </section>
+
+    <section class="panel">
+        <div class="panel-head">
+            <div>
+                <span class="section-kicker">VIRAL POTENTIAL</span>
+                <h3>Prediction mix</h3>
+            </div>
+            <span class="panel-tag">ML score</span>
+        </div>
+        <div id="viralChart" class="donut-wrap"></div>
+    </section>
+</div>
+
+<div class="grid-2 lower">
+    <section class="panel">
+        <div class="panel-head">
+            <div>
+                <span class="section-kicker">RECOMMENDATION SIGNAL</span>
+                <h3>Strongest topics</h3>
+            </div>
+            <a class="panel-link" href="{{ url_for('recommendations') }}">View all →</a>
+        </div>
+        <div class="topic-list">
+        {% for row in top_topics %}
+            <div class="topic-row">
+                <div class="rank">{{ loop.index }}</div>
+                <div class="topic-main">
+                    <strong>{{ row.topic }}</strong>
+                    <small>{{ "{:,.0f}".format(row.median_views|float) }} median views</small>
+                </div>
+                <div class="score">{{ "%.2f"|format(row.recommendation_score|float) }}</div>
+            </div>
+        {% endfor %}
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="panel-head">
+            <div>
+                <span class="section-kicker">TOP PREDICTIONS</span>
+                <h3>Highest viral probability</h3>
+            </div>
+            <a class="panel-link" href="{{ url_for('content') }}">Explore content →</a>
+        </div>
+        <div class="prediction-list">
+        {% for row in top_videos %}
+            <div class="prediction-row">
+                <div class="video-dot">{{ loop.index }}</div>
+                <div class="prediction-main">
+                    <strong>{{ row.title }}</strong>
+                    <small>{{ row.topic }}</small>
+                </div>
+                <div class="prob">{{ "%.0f"|format((row.viral_probability|float) * 100) }}%</div>
+            </div>
+        {% endfor %}
+        </div>
+    </section>
+</div>
+
+<div class="insight-strip">
+    <div class="insight-icon">✦</div>
+    <div>
+        <strong>Current recommendation signal</strong>
+        <p><span>{{ summary.top_topic }}</span> is currently the strongest topic by the project's recommendation score. The rising trend signal is <span>{{ summary.rising_topic }}</span>.</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    window.dashboardCharts = {{ charts|tojson }};
+    renderOverviewCharts(window.dashboardCharts);
+</script>
+{% endblock %}

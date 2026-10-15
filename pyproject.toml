@@ -1,0 +1,12 @@
+[project]
+name = "social-engagement-dashboard"
+version = "1.0.0"
+requires-python = ">=3.12"
+dependencies = [
+    "Flask",
+    "pandas",
+    "numpy"
+]
+
+[tool.vercel]
+entrypoint = "dashboards.app:app"

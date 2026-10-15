@@ -1,0 +1,56 @@
+RANDOM FOREST MODEL REPORT
+============================================================
+
+Accuracy : 0.8500
+Precision: 0.0000
+Recall   : 0.0000
+F1 Score : 0.0000
+ROC-AUC  : 0.4236
+PR-AUC   : 0.1058
+
+CONFUSION MATRIX
+[[34  2]
+ [ 4  0]]
+
+CLASSIFICATION REPORT
+              precision    recall  f1-score   support
+
+   Non-Viral       0.89      0.94      0.92        36
+       Viral       0.00      0.00      0.00         4
+
+    accuracy                           0.85        40
+   macro avg       0.45      0.47      0.46        40
+weighted avg       0.81      0.85      0.83        40
+
+
+FEATURE IMPORTANCE
+                               feature  importance
+                 numeric__title_length    0.154428
+                 numeric__publish_hour    0.117833
+              numeric__uppercase_count    0.103736
+             numeric__title_word_count    0.096163
+    categorical__topic_self confidence    0.078074
+              numeric__publish_day_num    0.059627
+                  numeric__digit_count    0.052825
+     categorical__topic_social anxiety    0.045471
+         categorical__topic_loneliness    0.040607
+  categorical__topic_academic pressure    0.034402
+     categorical__publish_day_Thursday    0.032508
+       categorical__publish_day_Sunday    0.018200
+    categorical__publish_day_Wednesday    0.015276
+     categorical__publish_day_Saturday    0.013964
+      categorical__publish_day_Tuesday    0.012628
+                   numeric__has_number    0.012486
+     categorical__topic_student stress    0.011935
+                   numeric__is_weekend    0.011452
+       categorical__publish_day_Monday    0.010903
+    categorical__topic_procrastination    0.010281
+     categorical__topic_dating anxiety    0.010054
+          numeric__question_mark_count    0.009647
+       categorical__topic_overthinking    0.007708
+                 numeric__has_question    0.007347
+     categorical__topic_career anxiety    0.007184
+       numeric__exclamation_mark_count    0.007014
+              numeric__has_exclamation    0.006553
+       categorical__publish_day_Friday    0.006040
+categorical__topic_friendship problems    0.005652

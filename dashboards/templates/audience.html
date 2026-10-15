@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Audience & NLP | Social Insights{% endblock %}
+{% block heading %}Audience & NLP{% endblock %}
+
+{% block content %}
+<div class="page-intro">
+    <div>
+        <div class="section-kicker">AUDIENCE RESPONSE</div>
+        <h2>Emotional resonance & problem awareness</h2>
+        <p>Comment-level NLP summarized at video and topic level.</p>
+    </div>
+</div>
+
+<div class="metric-grid compact">
+    <div class="metric-card pink">
+        <div class="metric-top"><span>Average sentiment</span><span class="metric-icon">☻</span></div>
+        <div class="metric-value">{{ summary.avg_sentiment }}</div>
+        <div class="metric-note">TextBlob polarity average</div>
+    </div>
+    <div class="metric-card teal">
+        <div class="metric-top"><span>Relatability rate</span><span class="metric-icon">↔</span></div>
+        <div class="metric-value">{{ summary.avg_relatability }}%</div>
+        <div class="metric-note">Keyword-rule estimate</div>
+    </div>
+    <div class="metric-card yellow">
+        <div class="metric-top"><span>Problem awareness</span><span class="metric-icon">!</span></div>
+        <div class="metric-value">{{ summary.avg_problem_awareness }}%</div>
+        <div class="metric-note">Keyword-rule estimate</div>
+    </div>
+    <div class="metric-card blue">
+        <div class="metric-top"><span>Total comments</span><span class="metric-icon">☷</span></div>
+        <div class="metric-value">{{ "{:,.0f}".format(summary.total_comments) }}</div>
+        <div class="metric-note">Comments analyzed</div>
+    </div>
+</div>
+
+<div class="grid-2">
+    <section class="panel">
+        <div class="panel-head">
+            <div><span class="section-kicker">SENTIMENT</span><h3>Average sentiment by topic</h3></div>
+        </div>
+        <div id="sentimentChart" class="bar-chart"></div>
+    </section>
+    <section class="panel">
+        <div class="panel-head">
+            <div><span class="section-kicker">AUDIENCE SIGNAL</span><h3>What the comments suggest</h3></div>
+        </div>
+        <div class="callout-stack">
+            <div class="callout purple-bg">
+                <span class="callout-number">{{ summary.avg_relatability }}%</span>
+                <div><strong>Average relatability</strong><small>Comments classified as relatable using the project rule set.</small></div>
+            </div>
+            <div class="callout orange-bg">
+                <span class="callout-number">{{ summary.avg_problem_awareness }}%</span>
+                <div><strong>Problem awareness</strong><small>Comments containing selected problem-related language.</small></div>
+            </div>
+            <div class="method-note"><strong>Method note:</strong> These NLP labels are rule-based signals, not human-validated classifications.</div>
+        </div>
+    </section>
+</div>
+
+<section class="panel">
+    <div class="panel-head">
+        <div><span class="section-kicker">TOPIC BREAKDOWN</span><h3>Audience response by topic</h3></div>
+    </div>
+    <div class="table-scroll">
+        <table>
+            <thead><tr><th>Topic</th><th>Sentiment</th><th>Relatability</th><th>Problem awareness</th><th>Comments</th></tr></thead>
+            <tbody>
+            {% for row in topic_rows %}
+                <tr>
+                    <td><strong>{{ row.topic }}</strong></td>
+                    <td>{{ "%.3f"|format(row.average_sentiment|float) }}</td>
+                    <td>{{ "%.1f"|format(row.relatability_rate|float) }}%</td>
+                    <td>{{ "%.1f"|format(row.problem_awareness_rate|float) }}%</td>
+                    <td>{{ "{:,.0f}".format(row.total_comments|float) }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>window.dashboardCharts = {{ charts|tojson }}; renderAudienceCharts(window.dashboardCharts);</script>
+{% endblock %}

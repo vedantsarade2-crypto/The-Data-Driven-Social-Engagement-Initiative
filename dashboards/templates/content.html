@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Content | Social Insights{% endblock %}
+{% block heading %}Content Performance{% endblock %}
+
+{% block content %}
+<div class="page-intro">
+    <div>
+        <div class="section-kicker">CONTENT LIBRARY</div>
+        <h2>Video-level performance</h2>
+        <p>Browse views, engagement, audience response and the model's viral potential.</p>
+    </div>
+    <div class="search-box">
+        <span>⌕</span>
+        <input id="contentSearch" type="text" placeholder="Search title, topic or channel...">
+    </div>
+</div>
+
+<section class="panel table-panel">
+    <div class="table-toolbar">
+        <span id="contentCount">{{ records|length }} records</span>
+        <span class="panel-tag">Sorted by views</span>
+    </div>
+    <div class="table-scroll">
+        <table id="contentTable">
+            <thead>
+                <tr>
+                    <th>Video</th>
+                    <th>Topic</th>
+                    <th>Views</th>
+                    <th>Likes</th>
+                    <th>Comments</th>
+                    <th>Engagement</th>
+                    <th>Relatability</th>
+                    <th>Viral potential</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for row in records %}
+                <tr>
+                    <td>
+                        <div class="title-cell">
+                            <strong>{{ row.title }}</strong>
+                            <small>{{ row.channel_title }}</small>
+                        </div>
+                    </td>
+                    <td><span class="topic-chip">{{ row.topic }}</span></td>
+                    <td>{{ "{:,.0f}".format(row.views|float) }}</td>
+                    <td>{{ "{:,.0f}".format(row.likes|float) }}</td>
+                    <td>{{ "{:,.0f}".format(row.comments_count|float) }}</td>
+                    <td>{{ "%.2f"|format(row.engagement_rate|float) }}%</td>
+                    <td>{{ "%.1f"|format(row.relatability_rate|float) }}%</td>
+                    <td>
+                        {% set potential = row.viral_potential|default('Low') %}
+                        <span class="badge {% if potential == 'High' %}high{% elif potential == 'Medium' %}medium{% else %}low{% endif %}">
+                            {{ potential }}
+                        </span>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>initContentSearch();</script>
+{% endblock %}
