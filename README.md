@@ -1,6 +1,8 @@
-By mistakenly I ran "rm -rf .git" in gitbash thats why all old commits got deleted
 
 # The Data-Driven Social Engagement Initiative
+
+**Author / Maintainer:** Vedant Sarade  
+**GitHub:** [vedantsarade2-crypto](https://github.com/vedantsarade2-crypto)
 
 An end-to-end data science and machine learning project designed to analyze social media content performance, understand audience behavior, identify viral content patterns, analyze audience sentiment and problem awareness, detect emerging trends, and generate data-driven content recommendations.
 
@@ -11,12 +13,14 @@ The project combines data collection, data preprocessing, exploratory data analy
 ## 🚀 Live Demo
 
 ### Interactive Dashboard
+
 **Vercel Deployment:**  
 https://the-data-driven-social-engagement-i-nine.vercel.app/
 
 ### GitHub Repository
+
 **Source Code:**  
-https://github.com/omkarsatpute18/The-Data-Driven-Social-Engagement-Initiative
+https://github.com/vedantsarade2-crypto/The-Data-Driven-Social-Engagement-Initiative
 
 ---
 
@@ -251,8 +255,6 @@ Average sentiment score:
 
 ### Relatability Analysis
 
-The analysis identified:
-
 ```text
 Relatable comments: 607
 Neutral comments: 13,562
@@ -260,8 +262,6 @@ Relatability rate: approximately 4.28%
 ```
 
 ### Problem Awareness
-
-The analysis identified:
 
 ```text
 Problem-aware comments: 4,235
@@ -517,40 +517,40 @@ The project includes a Flask-based interactive dashboard.
 ### Dashboard Sections
 
 #### Overview
-Provides:
 
+Provides:
 - Key performance indicators
 - Viral content overview
 - Topic performance
 - Overall project metrics
 
 #### Content Analysis
-Provides:
 
+Provides:
 - Video performance
 - Topic comparisons
 - Engagement information
 - Content-level analysis
 
 #### Audience Analysis
-Provides:
 
+Provides:
 - Sentiment distribution
 - Relatability
 - Problem awareness
 - Audience response metrics
 
 #### Trend Analysis
-Provides:
 
+Provides:
 - Trend scores
 - Search growth
 - Hashtag growth
 - Rising-topic information
 
 #### Recommendations
-Provides:
 
+Provides:
 - Recommended topics
 - Viral potential
 - Recommended posting period
@@ -599,7 +599,6 @@ The-Data-Driven-Social-Engagement-Initiative/
 │   │   ├── comments/
 │   │   ├── tremds/
 │   │   └── content_series.csv
-│   │
 │   ├── processed/
 │   └── final/
 │
@@ -626,7 +625,7 @@ The-Data-Driven-Social-Engagement-Initiative/
 │   └── statistics/
 │
 ├── .gitignore
-├── .env
+├── .env.example
 ├── pyproject.toml
 ├── README.md
 └── requirements.txt
@@ -636,13 +635,13 @@ The-Data-Driven-Social-Engagement-Initiative/
 
 ## 🔐 Security
 
-Sensitive credentials should not be committed to the repository.
+Sensitive credentials must never be committed to the repository. Keep them in a local `.env` file or environment variables, and commit only a sanitized `.env.example` template.
 
 The project uses environment variables for API credentials.
 
-The `.env` file is excluded through `.gitignore`.
+The local `.env` file should be excluded through `.gitignore` and must never be committed. If credentials were exposed, revoke and replace them.
 
-Example:
+Example `.gitignore` entries:
 
 ```text
 .env
@@ -736,7 +735,7 @@ data/processed/trend_aware_recommendations.csv
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/omkarsatpute18/The-Data-Driven-Social-Engagement-Initiative.git
+git clone https://github.com/vedantsarade2-crypto/The-Data-Driven-Social-Engagement-Initiative.git
 ```
 
 ### 2. Navigate to the project
@@ -787,9 +786,9 @@ http://127.0.0.1:5000/
 
 ## 👨‍💻 Author
 
-**Omkar Satpute**
+**Vedant Sarade**
 
-Third-Year Electronics and Telecommunication Engineering Student
+Electronics and Telecommunication Engineering Student
 
 Interested in:
 
@@ -805,7 +804,7 @@ Interested in:
 ## ⭐ Project Links
 
 **GitHub Repository:**  
-https://github.com/omkarsatpute18/The-Data-Driven-Social-Engagement-Initiative
+https://github.com/vedantsarade2-crypto/The-Data-Driven-Social-Engagement-Initiative
 
 **Live Dashboard:**  
 https://the-data-driven-social-engagement-i-nine.vercel.app/
